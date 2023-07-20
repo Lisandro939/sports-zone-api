@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 );
 
 // Make a cron every 5 seconds
-cron.schedule('*/15 * * * * *', () => {
+/* cron.schedule('*/ /*15 * * * * *', () => {
     fetching();
 }
-);
+); */
