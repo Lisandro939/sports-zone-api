@@ -1682,7 +1682,7 @@ packages:
 
   /lru-cache@8.0.5:
     resolution: {integrity: sha512-MhWWlVnuab1RG5/zMRRcVGXZLCXrZTgfwMikgzCegsPnG62yDQo5JnqKkrK4jO5iKqDAZGItAqN5CtKBCBWRUA==}
-    engines: {node: '>=16.14'}
+    engines: {node: '>=14.17'}
     dev: false
 
   /media-typer@0.3.0:
