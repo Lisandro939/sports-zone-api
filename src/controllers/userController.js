@@ -25,8 +25,10 @@ export function getUserByUsername (req, res) {
     const username = req.params.username;
     connection.query('SELECT * FROM user WHERE username = ?', [username], (err, results) => {
         if (err) {
+            console.log(err)
             res.status(500).send('Error retrieving user');
         } else {
+            console.log(results)
             res.json(results);
         }
     })
