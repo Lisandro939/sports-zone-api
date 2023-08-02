@@ -27,6 +27,13 @@ export function getUserByUsername (req, res) {
         if (err) {
             console.log('Error to get user by username: ',err)
             res.status(500).send('Error retrieving user');
+            connection.connect((error) => {
+                if (error) {
+                  console.error('Error de conexión: ', error);
+                } else {
+                  console.log('Conexión exitosa a la base de datos de Sports Zone');
+                }
+            });
         } else {
             console.log(results)
             res.json(results);
