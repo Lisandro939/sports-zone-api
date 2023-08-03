@@ -19,15 +19,14 @@ import { leagueRouter } from './routes/leagueRoute.js';
 import { teamRouter } from './routes/teamRoute.js';
 import { playerRouter } from './routes/playerRoute.js';
 
-const dbConfig = {
+export const connection = mysql.createConnection({
     host: process.env.HOST_URL,
     user: process.env.USER_DB,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-};
+});
 
 function establishConnection() {
-    connection = mysql.createConnection(dbConfig);
   
     connection.connect((error) => {
       if (error) {
@@ -40,17 +39,17 @@ function establishConnection() {
     });
 
     connection.on('error', (error) => {
-        console.error('Error de conexión: ', error);
-        // Si hay un error de conexión, espera 5 segundos y vuelve a intentarlo
-        if (error.code === 'PROTOCOL_CONNECTION_LOST') {
-          establishConnection();
-        } else {
-          throw error;
-        }
-      });
+    console.error('Error de conexión: ', error);
+    // Si hay un error de conexión, espera 5 segundos y vuelve a intentarlo
+    if (error.code === 'PROTOCOL_CONNECTION_LOST') {
+      establishConnection();
+    } else {
+      throw error;
     }
+  });
+}
 
-    establishConnection();
+establishConnection();
 
 
 const swaggerSpec = {
