@@ -26,7 +26,7 @@ export const connection = mysql.createConnection({
     database: process.env.DATABASE,
 });
 
-function establishConnection() {
+export function establishConnection() {
   
     connection.connect((error) => {
       if (error) {
