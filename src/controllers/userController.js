@@ -45,7 +45,7 @@ export function createUser (req, res) {
     const user = req.body;
     connection.query('INSERT INTO user SET ?', [user], (err, results) => {
         if (err) {
-            res.status(500).send('Error creating user');
+            res.status(500).send('Error creating user', err);
         } else {
             res.json(results);
         }
