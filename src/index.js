@@ -19,20 +19,38 @@ import { leagueRouter } from './routes/leagueRoute.js';
 import { teamRouter } from './routes/teamRoute.js';
 import { playerRouter } from './routes/playerRoute.js';
 
-export const connection = mysql.createConnection({
+const dbConfig = {
     host: process.env.HOST_URL,
     user: process.env.USER_DB,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-});
+};
 
-connection.connect((error) => {
-    if (error) {
-      console.error('Error de conexión: ', error);
-    } else {
-      console.log('Conexión exitosa a la base de datos de Sports Zone');
+function establishConnection() {
+    connection = mysql.createConnection(dbConfig);
+  
+    connection.connect((error) => {
+      if (error) {
+        console.error('Error de conexión: ', error);
+        // Si hay un error de conexión, espera 5 segundos y vuelve a intentarlo
+        setTimeout(establishConnection, 5000);
+      } else {
+        console.log('Conexión exitosa a la base de datos de Sports Zone');
+      }
+    });
+
+    connection.on('error', (error) => {
+        console.error('Error de conexión: ', error);
+        // Si hay un error de conexión, espera 5 segundos y vuelve a intentarlo
+        if (error.code === 'PROTOCOL_CONNECTION_LOST') {
+          establishConnection();
+        } else {
+          throw error;
+        }
+      });
     }
-});
+
+    establishConnection();
 
 
 const swaggerSpec = {
