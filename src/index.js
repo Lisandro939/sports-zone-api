@@ -3,6 +3,8 @@ import express from 'express';
 import { config } from 'dotenv';
 config();
 
+import cors from 'cors';
+
 // cron
 // import cron from 'node-cron';
 
@@ -81,6 +83,7 @@ const port = process.env.PORT || 3000;
 // middlewares
 app.use(express.json());
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJSDoc(swaggerOptions)))
+app.use(cors())
 
 
 app.listen(port, () => {
@@ -89,7 +92,7 @@ app.listen(port, () => {
 );
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Andá pa otro lado bobo');
 }
 );
 

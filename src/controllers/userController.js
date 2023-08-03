@@ -1,4 +1,5 @@
 import { connection, establishConnection } from '../index.js';
+import { validateUser } from '../schemes/userScheme.js';
 
 export function getAllUsers (_req, res) {
     connection.query('SELECT * FROM user', (err, results) => {
@@ -37,9 +38,16 @@ export function getUserByUsername (req, res) {
 
 export function createUser (req, res) {
     const user = req.body;
+
+    const result = validateUser(user);
+
+    if (result.error) {
+        return res.status(400).json({ error: result.error.issues[0].message});
+    }
+
     connection.query('INSERT INTO user SET ?', [user], (err, results) => {
         if (err) {
-            console.log(err)
+            console.log(err.sqlMessage)
             res.status(505).send('Error creating user');
         } else {
             res.json(results);
