@@ -2,6 +2,7 @@ import { connection, establishConnection } from '../index.js';
 import { validateUser } from '../schemes/userScheme.js';
 
 export function getAllUsers (_req, res) {
+    console.log('GET ALL USERS')
     if (connection.state === 'disconnected') {
         establishConnection();
     }
