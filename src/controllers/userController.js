@@ -28,7 +28,6 @@ export function getUserByUsername (req, res) {
         if (err) {
             console.log('Error to get user by username: ',err)
             res.status(500).send('Error retrieving user');
-            establishConnection();
         } else {
             console.log(results)
             res.json(results);
