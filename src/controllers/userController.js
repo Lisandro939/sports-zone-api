@@ -2,6 +2,9 @@ import { connection, establishConnection } from '../index.js';
 import { validateUser } from '../schemes/userScheme.js';
 
 export function getAllUsers (_req, res) {
+    if (connection.state === 'disconnected') {
+        establishConnection();
+    }
     connection.query('SELECT * FROM user', (err, results) => {
         if (err) {
             res.status(500).send('Error retrieving users');
@@ -24,6 +27,9 @@ export function getUserById (req, res) {
 
 export function getUserByUsername (req, res) {
     const username = req.params.username;
+    if (connection.state === 'disconnected') {
+        establishConnection();
+    }
     connection.query('SELECT * FROM user WHERE username = ?', [username], (err, results) => {
         if (err) {
             console.log('Error to get user by username: ',err)
@@ -37,6 +43,10 @@ export function getUserByUsername (req, res) {
 
 export function createUser (req, res) {
     const user = req.body;
+
+    if (connection.state === 'disconnected') {
+        establishConnection();
+    }
 
     const result = validateUser(user);
 
