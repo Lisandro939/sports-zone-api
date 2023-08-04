@@ -41,14 +41,14 @@ export function establishConnection() {
     });
 
     connection.on('error', (error) => {
-    console.error('Error de conexión: ', error);
-    // Si hay un error de conexión, espera 5 segundos y vuelve a intentarlo
-    if (error.code === 'PROTOCOL_CONNECTION_LOST') {
-      establishConnection();
-    } else {
-      throw error;
-    }
-  });
+      console.error('Error de conexión: ', error);
+      // Si hay un error de conexión, espera 5 segundos y vuelve a intentarlo
+      if (error.code === 'PROTOCOL_CONNECTION_LOST') {
+        establishConnection();
+      } else {
+        throw error;
+      }
+    });
 }
 
 establishConnection();
