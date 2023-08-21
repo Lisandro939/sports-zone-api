@@ -1,7 +1,7 @@
 import { connection } from '../index.js';
 
 export function getAllCountries (_req, res) {
-    connection.query('SELECT * FROM country', (err, results) => {
+    connection.query('SELECT * FROM paises ORDER BY name', (err, results) => {
         if (err) {
             res.status(500).send('Error retrieving country');
         } else {
