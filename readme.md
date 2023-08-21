@@ -1,1 +1,3 @@
-ADD ENVIROMENT VARIABLES IN CYCLIC
+Next: 
+
+- [ ] Fix sports and images
