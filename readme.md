@@ -1,3 +1,3 @@
 Next: 
 
-- [ ] Fix sports and images
+- [ ] Fix sports searched and images of the sport
