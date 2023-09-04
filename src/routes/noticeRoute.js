@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllNotices } from "../controllers/noticeController";
+import { getAllNotices } from "../controllers/noticeController.js";
 
 export const noticeRouter = express.Router();
 
