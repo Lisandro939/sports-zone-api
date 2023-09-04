@@ -6,7 +6,7 @@ config();
 import cors from 'cors';
 
 // cron
-// import cron from 'node-cron';
+import cron from 'node-cron';
 
 // swagger
 import swaggerJSDoc from 'swagger-jsdoc';
@@ -21,6 +21,7 @@ import { leagueRouter } from './routes/leagueRoute.js';
 import { teamRouter } from './routes/teamRoute.js';
 import { playerRouter } from './routes/playerRoute.js';
 import { flagsRouter } from './routes/flagsRoute.js';
+import { fetchNotices } from './functions/fetchGeneralNews.js';
 
 export const connection = mysql.createConnection({
     host: process.env.HOST_URL,
@@ -104,8 +105,12 @@ app.use('/api/v1', leagueRouter);
 app.use('/api/v1', teamRouter);
 app.use('/api/v1', playerRouter);
 app.use('/api/v1', flagsRouter)
+// app.use('/api/v1', )
 
 // Make a cron every 5 seconds
-// cron.schedule('*/15 * * * * *', () => { ... });
+cron.schedule('*/30 * * * * *', () => { 
+    console.log('Fetching news');
+    fetchNotices();
+});
 
 
