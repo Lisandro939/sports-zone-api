@@ -5,6 +5,6 @@ export const noticeRouter = express.Router();
 
 // GET ALL
 
-countryRouter.get("/notices", getAllNotices)
+noticeRouter.get("/notices", getAllNotices)
 
 // GET
