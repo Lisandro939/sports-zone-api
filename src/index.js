@@ -22,6 +22,7 @@ import { teamRouter } from './routes/teamRoute.js';
 import { playerRouter } from './routes/playerRoute.js';
 import { flagsRouter } from './routes/flagsRoute.js';
 import { fetchNotices } from './functions/fetchGeneralNews.js';
+import { noticeRouter } from './routes/noticeRoute.js';
 
 export const connection = mysql.createConnection({
     host: process.env.HOST_URL,
@@ -104,8 +105,8 @@ app.use('/api/v1', sportRouter);
 app.use('/api/v1', leagueRouter);
 app.use('/api/v1', teamRouter);
 app.use('/api/v1', playerRouter);
-app.use('/api/v1', flagsRouter)
-// app.use('/api/v1', )
+app.use('/api/v1', flagsRouter);
+app.use('/api/v1', noticeRouter);
 
 // Make a cron every 5 seconds
 cron.schedule('*/30 * * * * *', () => { 
