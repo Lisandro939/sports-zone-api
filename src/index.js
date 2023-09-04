@@ -113,5 +113,3 @@ cron.schedule('*/30 * * * * *', () => {
     console.log('Fetching news');
     fetchNotices();
 });
-
-

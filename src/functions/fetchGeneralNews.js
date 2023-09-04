@@ -119,4 +119,5 @@ export function fetchNotices () {
             }
         }
     })
+    return;
 }
