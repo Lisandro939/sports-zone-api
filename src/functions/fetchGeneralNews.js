@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio'
-import { connection } from '../index.js'
+//import { connection } from '../index.js'
 
 const url = 'https://onefootball.com/es/inicio'
 
@@ -30,12 +30,15 @@ export function fetchNotices () {
         })
         let index = 0;
         const $images = $('ul > li > article > a > div > picture > source').each((i, line) => {
-            let secondIndex = 0;
             const image = $(line).attr('srcset').match(/https[^ ]+/)[0]
-            if (index % 7 === 0 && index !== 0) {
+            const regex = /w=\d+&h=\d+&/;
+            if (index === 0 && image.match(/w=(\d+)/)[1] > 300) {
                 images.push(image)
+                index++;
+            } else if(image.replace(regex, '') !== images[index-1].replace(regex, '') && image.match(/w=(\d+)/)[1] > 300) {
+                images.push(image)
+                index++;
             }
-            index ++;
         })
         const $sourcesImages = $('ul > li > article > footer > a > div > img').each((i, line) => {
             const sourceImage = $(line).attr('src').match(/^[^ ]+/)[0]
@@ -71,11 +74,11 @@ export function fetchNotices () {
             superArray.push(superObject);
         }
 
+        console.log(superArray);
         // Now superArray contains the objects with combined data
-
         // Save this data to the database
         let databaseNotices = [];
-        connection.query('SELECT * FROM notice', (err, results) => {
+        /* connection.query('SELECT * FROM notice', (err, results) => {
             if (err) {
                 console.log(err);
             } else {
@@ -83,11 +86,11 @@ export function fetchNotices () {
                 // Wait for superArray to be populated before inserting into the database
                 insertOrUpdateDataInDatabase(superArray);
             }
-        });
+        }); */
 
         // superArray tarda unos segundos, por lo que hay que esperar a que se llene
         // antes de insertar en la base de datos
-        async function insertOrUpdateDataInDatabase(superArray) {
+        /* async function insertOrUpdateDataInDatabase(superArray) {
             for (const item of superArray) {
                 const existingNotice = databaseNotices.find((notice) => notice.title === item.title);
         
@@ -117,7 +120,9 @@ export function fetchNotices () {
                     );
                 }
             }
-        }
+        } */
     })
     return;
 }
+
+fetchNotices();

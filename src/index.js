@@ -108,8 +108,8 @@ app.use('/api/v1', playerRouter);
 app.use('/api/v1', flagsRouter);
 app.use('/api/v1', noticeRouter);
 
-// Make a cron every 5 seconds
-cron.schedule('*/30 * * * * *', () => { 
+// Make a cron every minute
+cron.schedule('* * * * *', () => { 
     console.log('Fetching news');
     fetchNotices();
 });
