@@ -87,7 +87,7 @@ export const getUserTeamsPreferencesById = (req, res) => {
 
 export const getUserTeamsPreferencesByUsername = (req, res) => {
     const username = req.params.username;
-    connection.query('SELECT * FROM user_preference WHERE username = ? AND type = "team"', [username], (err, results) => {
+    connection.query('SELECT up.username, t.name AS team_name, t.logo_url FROM user_preference up INNER JOIN team t ON up.name = t.name WHERE up.username = ?;', [username], (err, results) => {
         if (err) {
             res.status(500).send('Error retrieving user teams preferences');
         } else {
